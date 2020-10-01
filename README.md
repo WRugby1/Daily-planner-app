@@ -19,4 +19,4 @@ THEN the text for that event is saved in local storage
 WHEN I refresh the page
 THEN the saved events persist
 
-<img src = "C:\Users\tanne\Documents\Housekeeping\Boot_camp\Homework\Homework5\2020-10-01 17_39_26" alt = "deployed site">
+<img src = "2020-10-01 17_39_26-Work Day Scheduler.png" alt = "deployed site">

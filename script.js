@@ -44,72 +44,65 @@ $(document).ready(function () {
         time: "5 pm",
         count: "8"
     },]
-    // Create a for each for the array time
-    // times.forEach(generateTimeBlocks);
-    renderEvents();
 
-    function renderEvents() {
+    generateTimeBlocks();
+
+    function generateTimeBlocks() {
+       // For loop to create all elements based off 
         for (var i = 0; i < times.length; i++) {
+            // Grab local storage 
+            var localKey = localStorage.getItem(i)
 
+            // Create row div and assign the classes
+            var div = document.createElement("div")
+            div.className = "row"
+            container.append(div)
+            var timeblock = document.createElement("div")
+            timeblock.className = "col-md-2 hour text-center"
+            timeblock.textContent = times[i].time
+            div.appendChild(timeblock);
+
+            // Create text boxes 
+            var eventBox = document.createElement("textarea")
+            eventBox.setAttribute("id", i)
+            // Define text area class based off the time 
+            if (timeCount > times[i].count) {
+                eventBox.className = "col-md-8 past text-area"
+            }
+            else if (timeCount == times[i].count) {
+                eventBox.className = "col-md-8 present text-area"
+            }
+            else if (timeCount < times[i].count) {
+                eventBox.className = "col-md-8 future text-area"
+            }
+            // Set text content based off of localStorage
+            eventBox.textContent = localKey
+            div.appendChild(eventBox)
+
+            // Create save box elements
+            var saveBox = document.createElement("div")
+            saveBox.className = "col-md-2 saveBtn"
+            var saveBtn = document.createElement("button")
+            saveBtn.className = "saveBtn"
+            var saveBoxIcon = document.createElement("i")
+            saveBoxIcon.className = "fas fa-save"
+            saveBtn.appendChild(saveBoxIcon)
+            saveBox.appendChild(saveBtn)
+            div.appendChild(saveBox)
         }
+        saveLocalData();
     }
-    // function generateTimeBlocks(element, index) {
-    for (var i = 0; i < times.length; i++) {
-        // Create div element for a row
-        // Create the three cols
-        // // Assign classes to those cols 
-        var div = document.createElement("div")
-        div.className = "row"
-        container.append(div)
-        timeCountString = JSON.stringify(timeCount)
-        console.log(timeCountString)
-        var timeblock = document.createElement("div")
-        timeblock.className = "col-md-2 hour text-center"
-        timeblock.textContent = times[i].time
-        div.appendChild(timeblock);
-
-        var eventBoxForm = document.createElement("form")
-        if (timeCount > times[i].count) {
-            eventBoxForm.className = "col-md-8 past text-input"
-        }
-        else if (timeCount == times[i].count) {
-            eventBoxForm.className = "col-md-8 present text-input"
-        }
-        else if (timeCount < times[i].count) {
-            eventBoxForm.className = "col-md-8 future text-input"
-        }
-        var eventBox = document.createElement("textarea")
-        eventBox.className = "text-area"
-        eventBox.textContent = content[i]
-        eventBoxForm.appendChild(eventBox)
-        div.appendChild(eventBoxForm)
-        content.push(eventBox.value)
-        window.eventBox = eventBox
-
-        var saveBox = document.createElement("div")
-        saveBox.className = "col-md-2 saveBtn"
-        var saveBtn = document.createElement("button")
-        saveBtn.className = "saveBtn"
-        var saveBoxIcon = document.createElement("i")
-        saveBoxIcon.className = "fas fa-save"
-        saveBtn.appendChild(saveBoxIcon)
-        saveBox.appendChild(saveBtn)
-        div.appendChild(saveBox)
-
-
-        // Add button event listener for each zone
-
-        // // Add alert/prompt box to make an event
-        // Assign that event text to the time block
+    // Create event listener that listens to all save buttons 
+    function saveLocalData() {
+        $(".saveBtn").on("click", function () { // Click the save button to save that hour's tasks
+        // Grab the input value
+            var value = $(this).siblings(".text-area").val();
+        // Grab the input index
+            var time = $(this).siblings(".text-area").attr("id");
+            console.log(value);
+            console.log(time);
+            // Save both to localStorage
+            localStorage.setItem(time, value);
+        })
     }
-    
 })
-// // Make time blocks color coded based off the time
-$(".saveBtn").on("click", function() { // Click the save button to save that hour's tasks
-    var value = $(this).siblings(".text-area").val();
-    var time = $(this).parent().attr("id");
-    console.log(value);
-    console.log(time);
-    localStorage.setItem(time, value);
-})
-// // // Save these events to local storage

@@ -1,5 +1,7 @@
 # Daily planner
 
+https://wrugby1.github.io/Daily-planner-app/
+
 For this project, I created a daily planner that would help track 
 tasks for a given day, as well as color coding the input boxes depending on the time. 
 

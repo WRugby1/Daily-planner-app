@@ -1,4 +1,4 @@
-// Create variables 
+// Create variables
 $(document).ready(function () {
     var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var d = new Date();
